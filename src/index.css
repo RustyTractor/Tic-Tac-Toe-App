@@ -1,0 +1,270 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@900&display=swap");
+body {
+  font-family: "Nunito", sans-serif;
+  margin: 0;
+  background-color: #313540;
+  height: 100vh;
+  overflow: hidden;
+}
+
+h1 {
+  font-size: 80px;
+}
+
+.container {
+  position: absolute;
+  background-color: #313540;
+  width: 370px;
+  height: 370px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.holder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  row-gap: 12px;
+}
+
+.gameboard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
+  row-gap: 20px;
+  column-gap: 20px;
+  z-index: 1;
+}
+
+.field {
+  position: relative;
+  overflow: hidden;
+  background-color: #2c2e38;
+  box-shadow: 1px 3px 20px black inset;
+  transition: 0.6s;
+  border-radius: 5px;
+}
+
+.field:not(.fixed):hover {
+  box-shadow: 1px 3px 5px black inset;
+  background-color: #313540;
+  cursor: pointer;
+}
+
+.field:not(.fixed):hover .shape {
+  display: block;
+}
+
+.fixed {
+  background-color: #313540;
+  box-shadow: none;
+}
+
+.shape {
+  display: none;
+}
+
+.o div:first-child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #2c2e38;
+  height: 80%;
+  width: 80%;
+  border-radius: 50%;
+}
+
+.o div:last-child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #313540;
+  height: 45%;
+  width: 45%;
+  border-radius: 50%;
+}
+
+.x div:first-child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background-color: #2c2e38;
+  height: 100%;
+  width: 20%;
+  border-radius: 25em;
+}
+
+.x div:last-child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  background-color: #2c2e38;
+  height: 100%;
+  width: 20%;
+  border-radius: 25em;
+}
+
+.fixed .x div:last-child::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  background-color: rgb(255, 219, 219);
+  height: 50%;
+  width: 100%;
+}
+
+.fixed .shape {
+  display: block;
+}
+
+.fixed .x div {
+  background-color: rgb(255, 219, 219);
+  box-shadow: 0 0 16px red;
+}
+
+.fixed .o div:first-child {
+  background-color: rgb(215, 240, 255);
+  box-shadow: 0 0 16px rgb(0, 81, 255);
+}
+
+.fixed .o div:last-child {
+  box-shadow: 0 0 20px rgb(0, 81, 255) inset;
+}
+
+button {
+  text-decoration: none;
+  font-size: 42px;
+  font-family: "Nunito", sans-serif;
+  border: none;
+  outline: none;
+  border: 12px solid rgb(194, 194, 194);
+  border-top-right-radius: 40px;
+  border-bottom-left-radius: 40px;
+  padding: 10px 20px;
+  background-color: #313540;
+  color: rgb(194, 194, 194);
+  transition: 0.6s;
+}
+
+button:hover {
+  border-color: rgb(175, 226, 255);
+  box-shadow: 0 0 25px rgb(0, 94, 255);
+  color: rgb(175, 226, 255);
+  text-shadow: 0 0 25px rgb(0, 94, 255);
+  cursor: pointer;
+}
+
+.buttons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: grid;
+  row-gap: 12px;
+}
+
+.easy {
+  border-bottom-left-radius: 0;
+}
+.easy:hover {
+  border-color: rgb(214, 255, 215);
+  box-shadow: 0 0 25px rgb(0, 255, 13);
+  color: rgb(214, 255, 215);
+  text-shadow: 0 0 25px rgb(0, 255, 13);
+  cursor: pointer;
+}
+
+.medium {
+  border-radius: 0;
+}
+.medium:hover {
+  border-color: rgb(255, 253, 206);
+  box-shadow: 0 0 25px rgb(255, 247, 0);
+  color: rgb(255, 253, 206);
+  text-shadow: 0 0 25px rgb(255, 247, 0);
+  cursor: pointer;
+}
+
+.hard {
+  border-top-right-radius: 0;
+}
+.hard:hover {
+  border-color: rgb(255, 218, 218);
+  box-shadow: 0 0 25px rgb(255, 0, 0);
+  color: rgb(255, 218, 218);
+  text-shadow: 0 0 25px rgb(255, 0, 0);
+  cursor: pointer;
+}
+
+.choiceHolder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 400px;
+  height: 200px;
+
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+  transition: 0.6s;
+}
+
+.choice {
+  position: relative;
+}
+
+.choiceShape {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border: 12px solid rgb(194, 194, 194);
+  border-radius: 40px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.choice .o div:first-child {
+  background-color: rgb(194, 194, 194);
+}
+
+.choice .x div:last-child,
+.choice .x div:first-child {
+  background-color: rgb(194, 194, 194);
+}
+
+.choiceX .x:hover div:first-child,
+.choiceX .x:hover div:last-child {
+  background-color: rgb(255, 219, 219);
+  box-shadow: 0 0 25px red;
+}
+.choiceO .o:hover div:first-child {
+  background-color: rgb(215, 240, 255);
+  box-shadow: 0 0 25px rgb(0, 81, 255);
+}
+.choiceO .o:hover div:last-child {
+  box-shadow: 0 0 25px rgb(0, 81, 255) inset;
+}
+.choiceX:hover .choiceShape {
+  border-color: rgb(255, 219, 219);
+  box-shadow: 0 0 25px red;
+}
+.choiceO:hover .choiceShape {
+  border-color: rgb(215, 240, 255);
+  box-shadow: 0 0 25px rgb(0, 81, 255);
+}
