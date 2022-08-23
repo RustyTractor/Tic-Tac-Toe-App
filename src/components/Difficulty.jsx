@@ -7,13 +7,16 @@ const Difficulty = () => {
   const difficulties = ["EASY", "MEDIUM", "HARD"];
   const navigate = useNavigate();
 
+  // If the game started , then the player cant reach these options
   useEffect(() => {
     isStarted && navigate("/");
   });
 
+  // Set the difficulty and jump to the next selectable options...
   const handleClick = (difficulty) => {
     navigate("/choice");
   };
+
   return (
     <div className="buttons">
       {difficulties.map((diff) => (

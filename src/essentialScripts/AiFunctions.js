@@ -37,7 +37,7 @@ export const detectWinner = (table) => {
 };
 
 // Is there any empty field
-const isEmptyField = (table) => {
+export const isEmptyField = (table) => {
   for (let i = 0; i < 9; i++) {
     if (table[i] === 0) {
       return true;

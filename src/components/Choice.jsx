@@ -3,14 +3,24 @@ import { useNavigate } from "react-router-dom";
 import GameContext from "./contexts/GameContext";
 
 const Choice = () => {
-  const { isStarted, setIsPlayerFirst, setIsStarted, modifyPlayerTurn } =
+  const { isStarted, setIsPlayerFirst, setIsStarted, dispatch } =
     useContext(GameContext);
+
   const navigate = useNavigate();
 
+  // If the game started , then the player can't reach the character select option...
   useEffect(() => {
     isStarted && navigate("/");
   });
 
+  const modifyPlayerTurn = (trun) => {
+    dispatch({
+      type: "SET_PLAYER_TURN",
+      isPlayerTurn: trun,
+    });
+  };
+
+  // Select the current character, and start the game...
   const handleClick = (choice) => {
     if (choice === "x") {
       setIsPlayerFirst(true);

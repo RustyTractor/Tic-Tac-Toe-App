@@ -1,80 +1,62 @@
 import { createContext, useEffect, useReducer, useState } from "react";
 import GameReducer from "./GameReducer";
-import { AiCalculate } from "../../essentialScripts/AiFunctions";
+
+import {
+  getIfExist,
+  writeIntoSession,
+} from "../../essentialScripts/LocalSession";
 
 const GameContext = createContext();
 
 export const GameProvider = ({ children }) => {
   const initalState = {
-    isX: true,
-    isPlayerTurn: true,
+    isX: getIfExist("isX") || true,
+    isPlayerTurn: getIfExist("isPlayerTurn") || true,
   };
-  const [isStarted, setIsStarted] = useState(false);
-  const [difficulty, setDifficulty] = useState("easy");
-  const [isPlayerFirst, setIsPlayerFirst] = useState(false);
-  const [gameBoard, setGameBoard] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
   const [state, dispatch] = useReducer(GameReducer, initalState);
 
-  const newGame = () => {
-    setIsStarted(false);
-    setGameBoard([0, 0, 0, 0, 0, 0, 0, 0, 0]);
-  };
+  //If the SessionStorage not empty , then use those datas. Otherwise set the basic values.
+  const [isStarted, setIsStarted] = useState(getIfExist("isStarted") || false);
 
-  const setStep = (clickedFiled) => {
-    if (state.isPlayerTurn && isStarted) {
-      dispatch({
-        type: "SET_TURN",
-        isX: !state.isX,
-        isPlayerTurn: !state.isPlayerTurn,
-      });
-      writeIntoBoard(clickedFiled);
-    }
-  };
+  const [difficulty, setDifficulty] = useState(
+    getIfExist("difficulty") || "easy"
+  );
 
-  const writeIntoBoard = (field) => {
-    const copy = [...gameBoard];
+  const [isPlayerFirst, setIsPlayerFirst] = useState(
+    getIfExist("isPlayerFirst") || false
+  );
 
-    if (copy[field] === 0) {
-      state.isX ? (copy[field] = 1) : (copy[field] = 2);
-    }
+  const [gameBoard, setGameBoard] = useState(
+    getIfExist("gameBoard") || [0, 0, 0, 0, 0, 0, 0, 0, 0]
+  );
 
-    setGameBoard(copy);
-  };
-
-  const modifyPlayerTurn = (trun) => {
-    dispatch({
-      type: "SET_PLAYER_TURN",
-      isPlayerTurn: trun,
-    });
-  };
-
-  const AiStep = () => {
-    const step = AiCalculate(isPlayerFirst, [...gameBoard]);
-    dispatch({
-      type: "SET_TURN",
-      isX: !state.isX,
-      isPlayerTurn: !state.isPlayerTurn,
-    });
-    writeIntoBoard(step);
-  };
-
+  // If the game is started , then write every changes into the sessionStorage, else just drope everything.
   useEffect(() => {
-    !state.isPlayerTurn && AiStep();
+    isStarted &&
+      writeIntoSession(
+        state.isX,
+        state.isPlayerTurn,
+        isPlayerFirst,
+        isStarted,
+        difficulty,
+        gameBoard
+      );
+
+    !isStarted && sessionStorage.clear();
   });
 
   return (
     <GameContext.Provider
       value={{
         isStarted,
-        newGame,
         gameBoard,
-        isX: state.isX,
-        isPlayerTurn: state.isPlayerTurn,
-        setStep,
+        state,
         setIsPlayerFirst,
         setIsStarted,
-        modifyPlayerTurn,
+        setDifficulty,
+        setGameBoard,
+        dispatch,
       }}
     >
       {children}
