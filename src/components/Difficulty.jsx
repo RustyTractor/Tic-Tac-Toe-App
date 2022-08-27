@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import GameContext from "./contexts/GameContext";
 
 const Difficulty = () => {
-  const { isStarted } = useContext(GameContext);
+  const { isStarted, setDifficulty } = useContext(GameContext);
   const difficulties = ["EASY", "MEDIUM", "HARD"];
   const navigate = useNavigate();
 
@@ -14,6 +14,7 @@ const Difficulty = () => {
 
   // Set the difficulty and jump to the next selectable options...
   const handleClick = (difficulty) => {
+    setDifficulty(difficulty);
     navigate("/choice");
   };
 

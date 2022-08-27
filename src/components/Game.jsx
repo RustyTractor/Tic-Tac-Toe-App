@@ -45,6 +45,7 @@ const Game = () => {
 
   // Handle the ai step...
   const AiStep = () => {
+    console.log(isPlayerFirst);
     const step = AiCalculate(isPlayerFirst, [...gameBoard]);
     dispatch({
       type: "SET_TURN",
@@ -56,7 +57,7 @@ const Game = () => {
 
   useEffect(() => {
     // If it is not the player's turn , then call Ai...
-    !state.isPlayerTurn && AiStep();
+    !state.isPlayerTurn && isStarted && AiStep();
 
     // If someon wins with the current step or draw , then game is done...
     (detectWinner(gameBoard) !== 0 || isEmptyField(gameBoard) === false) &&

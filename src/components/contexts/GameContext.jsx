@@ -24,7 +24,7 @@ export const GameProvider = ({ children }) => {
   );
 
   const [isPlayerFirst, setIsPlayerFirst] = useState(
-    getIfExist("isPlayerFirst") || false
+    getIfExist("isPlayerFirst") || true
   );
 
   const [gameBoard, setGameBoard] = useState(
@@ -50,6 +50,7 @@ export const GameProvider = ({ children }) => {
     <GameContext.Provider
       value={{
         isStarted,
+        isPlayerFirst,
         gameBoard,
         state,
         setIsPlayerFirst,
