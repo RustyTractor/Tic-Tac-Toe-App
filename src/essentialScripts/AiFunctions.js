@@ -14,20 +14,6 @@ const possibleOptions = [
 
 let numberOfCalls = 0;
 
-const randomNumArray = (min, max) => {
-  let array = [];
-  array.push(Math.floor(Math.random() * (max - min)));
-
-  let randomNum = Math.floor(Math.random() * (max - min));
-
-  while (randomNum === array[0]) {
-    randomNum = Math.floor(Math.random() * (max - min));
-  }
-
-  array.push(randomNum);
-  return array;
-};
-
 // Detect the Winner , if there's a winner the function will return with 1 or 2, othervise 0...
 export const detectWinner = (table) => {
   for (let i = 0; i < 8; i++) {
@@ -134,7 +120,7 @@ const minmax = (table, depth, currentDepth, isMax, alpha, beta) => {
 };
 
 //AI choice. Wich is currentli just a random number.
-export const AiCalculate = (playerFirst, table) => {
+export const AiCalculate = (playerFirst, table, difficulty) => {
   let bestValue = MAX;
   let bestMove = 0;
   let isMaxTheNext = true;
