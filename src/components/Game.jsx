@@ -6,14 +6,18 @@ import {
 } from "../essentialScripts/AiFunctions";
 import { useNavigate } from "react-router-dom";
 import GameContext from "./contexts/GameContext";
+import { saveTheResult } from "../essentialScripts/LocalSession";
 
 const Game = () => {
   const {
     gameBoard,
     state,
+    winner,
     isStarted,
     isPlayerFirst,
-    setIsStarted,
+    isDone,
+    setIsDone,
+    setWinner,
     dispatch,
     setGameBoard,
     difficulty,
@@ -23,7 +27,7 @@ const Game = () => {
 
   // Handle player's click
   const setStep = (clickedFiled) => {
-    if (state.isPlayerTurn && isStarted) {
+    if (state.isPlayerTurn && isStarted && gameBoard[clickedFiled] === 0) {
       dispatch({
         type: "SET_TURN",
         isX: !state.isX,
@@ -56,16 +60,22 @@ const Game = () => {
   };
 
   useEffect(() => {
-    // If it is not the player's turn , then call Ai...
-    !state.isPlayerTurn && isStarted && AiStep();
-
     // If someon wins with the current step or draw , then game is done...
-    (detectWinner(gameBoard) !== 0 || isEmptyField(gameBoard) === false) &&
-      setIsStarted(false);
-
-    if (!isStarted) {
-      navigate("/");
+    if (detectWinner(gameBoard) !== 0 || isEmptyField(gameBoard) === false) {
+      console.log("Lefut a győztes detektálása!");
+      setIsDone(true);
+      setWinner(detectWinner(gameBoard));
     }
+
+    if (isDone) {
+      console.log("Lefut a navigáció!");
+      saveTheResult(difficulty, winner, isPlayerFirst);
+      navigate("/end");
+    }
+  });
+
+  useEffect(() => {
+    !state.isPlayerTurn && isStarted && !isDone && AiStep();
   });
 
   return (

@@ -15,9 +15,12 @@ export const GameProvider = ({ children }) => {
   };
 
   const [state, dispatch] = useReducer(GameReducer, initalState);
+  const [winner, setWinner] = useState(getIfExist("winner") || 0);
 
   //If the SessionStorage not empty , then use those datas. Otherwise set the basic values.
   const [isStarted, setIsStarted] = useState(getIfExist("isStarted") || false);
+
+  const [isDone, setIsDone] = useState(getIfExist("isDone") || false);
 
   const [difficulty, setDifficulty] = useState(
     getIfExist("difficulty") || "easy"
@@ -31,6 +34,19 @@ export const GameProvider = ({ children }) => {
     getIfExist("gameBoard") || [0, 0, 0, 0, 0, 0, 0, 0, 0]
   );
 
+  // If player is start a new game , then reset every value.
+
+  const newGame = () => {
+    dispatch({
+      type: "SET_TURN",
+      isX: true,
+      isPlayerTurn: true,
+    });
+    setIsStarted(false);
+    setIsDone(false);
+    setGameBoard([0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  };
+
   // If the game is started , then write every changes into the sessionStorage, else just drope everything.
   useEffect(() => {
     isStarted &&
@@ -39,6 +55,8 @@ export const GameProvider = ({ children }) => {
         state.isPlayerTurn,
         isPlayerFirst,
         isStarted,
+        isDone,
+        winner,
         difficulty,
         gameBoard
       );
@@ -54,11 +72,16 @@ export const GameProvider = ({ children }) => {
         gameBoard,
         state,
         difficulty,
+        winner,
+        isDone,
         setIsPlayerFirst,
         setIsStarted,
         setDifficulty,
         setGameBoard,
+        setIsDone,
+        setWinner,
         dispatch,
+        newGame,
       }}
     >
       {children}

@@ -12,10 +12,8 @@ h1 {
 }
 
 .container {
-  position: absolute;
+  position: relative;
   background-color: #313540;
-  width: 370px;
-  height: 370px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -230,8 +228,8 @@ button:hover {
 
 .choiceShape {
   position: absolute;
-  width: 160px;
-  height: 160px;
+  width: 150px;
+  height: 150px;
   border: 12px solid rgb(194, 194, 194);
   border-radius: 40px;
   top: 50%;
@@ -267,4 +265,60 @@ button:hover {
 .choiceO:hover .choiceShape {
   border-color: rgb(215, 240, 255);
   box-shadow: 0 0 25px rgb(0, 81, 255);
+}
+
+.blur {
+  animation-name: blur;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.end {
+  display: grid;
+  opacity: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 64px;
+  color: white;
+  z-index: 5;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-name: unveil;
+  animation-duration: 1.5s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+.end div {
+  display: flex;
+  justify-content: center;
+}
+.textHolder .x {
+  color: rgb(255, 219, 219);
+  text-shadow: 0 0 25px red;
+}
+.textHolder .o,
+.textHolder .d {
+  color: rgb(215, 240, 255);
+  text-shadow: 0 0 25px rgb(0, 81, 255);
+}
+
+@keyframes blur {
+  0% {
+    filter: blur(0);
+  }
+  100% {
+    filter: blur(20px);
+  }
+}
+
+@keyframes unveil {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
