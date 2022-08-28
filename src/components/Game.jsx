@@ -16,6 +16,7 @@ const Game = () => {
     setIsStarted,
     dispatch,
     setGameBoard,
+    difficulty,
   } = useContext(GameContext);
 
   const navigate = useNavigate();
@@ -45,8 +46,7 @@ const Game = () => {
 
   // Handle the ai step...
   const AiStep = () => {
-    console.log(isPlayerFirst);
-    const step = AiCalculate(isPlayerFirst, [...gameBoard]);
+    const step = AiCalculate(isPlayerFirst, [...gameBoard], difficulty);
     dispatch({
       type: "SET_TURN",
       isX: !state.isX,

@@ -24,7 +24,7 @@ const Difficulty = () => {
         <button
           className={diff.toLowerCase()}
           key={diff.toLowerCase()}
-          onClick={() => handleClick(diff)}
+          onClick={() => handleClick(diff.toLocaleLowerCase())}
         >
           {diff}
         </button>

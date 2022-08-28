@@ -12,8 +12,6 @@ const possibleOptions = [
   [2, 4, 6],
 ];
 
-let numberOfCalls = 0;
-
 // Detect the Winner , if there's a winner the function will return with 1 or 2, othervise 0...
 export const detectWinner = (table) => {
   for (let i = 0; i < 8; i++) {
@@ -121,39 +119,59 @@ const minmax = (table, depth, currentDepth, isMax, alpha, beta) => {
 
 //AI choice. Wich is currentli just a random number.
 export const AiCalculate = (playerFirst, table, difficulty) => {
-  let bestValue = MAX;
+  let aiSelector = 0;
   let bestMove = 0;
-  let isMaxTheNext = true;
-  let placeMarker = 2;
 
-  if (!playerFirst) {
-    bestValue = MIN;
-    isMaxTheNext = false;
-    placeMarker = 1;
+  if (difficulty === "easy") {
+    aiSelector = Math.floor(Math.random() * 10);
+  } else if (difficulty === "medium") {
+    aiSelector = Math.floor(Math.random() * 10);
   }
 
-  // Go through at the fields..
-  for (let i = 0; i < 9; i++) {
-    // Check is the current field isnt marked...
-    if (table[i] === 0) {
-      table[i] = placeMarker;
+  if (
+    difficulty === "hard" ||
+    (difficulty === "medium" && aiSelector > 2) ||
+    (difficulty === "easy" && aiSelector > 4)
+  ) {
+    let bestValue = MAX;
 
-      // Call MinMax algorithm for the best choice...
-      let currentValue = minmax(table, 15, 0, isMaxTheNext, MIN, MAX);
+    let isMaxTheNext = true;
+    let placeMarker = 2;
 
-      table[i] = 0;
+    if (!playerFirst) {
+      bestValue = MIN;
+      isMaxTheNext = false;
+      placeMarker = 1;
+    }
 
-      if (playerFirst) {
-        if (currentValue < bestValue) {
-          bestMove = i;
-          bestValue = currentValue;
-        }
-      } else {
-        if (currentValue > bestValue) {
-          bestMove = i;
-          bestValue = currentValue;
+    // Go through at the fields..
+    for (let i = 0; i < 9; i++) {
+      // Check is the current field isnt marked...
+      if (table[i] === 0) {
+        table[i] = placeMarker;
+
+        // Call MinMax algorithm for the best choice...
+        let currentValue = minmax(table, 15, 0, isMaxTheNext, MIN, MAX);
+
+        table[i] = 0;
+
+        if (playerFirst) {
+          if (currentValue < bestValue) {
+            bestMove = i;
+            bestValue = currentValue;
+          }
+        } else {
+          if (currentValue > bestValue) {
+            bestMove = i;
+            bestValue = currentValue;
+          }
         }
       }
+    }
+  } else {
+    bestMove = Math.floor(Math.random() * 9);
+    while (table[bestMove] !== 0) {
+      bestMove = Math.floor(Math.random() * 9);
     }
   }
 

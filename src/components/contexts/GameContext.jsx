@@ -53,6 +53,7 @@ export const GameProvider = ({ children }) => {
         isPlayerFirst,
         gameBoard,
         state,
+        difficulty,
         setIsPlayerFirst,
         setIsStarted,
         setDifficulty,
