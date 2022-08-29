@@ -61,10 +61,3 @@ export const saveTheResult = (difficulty, winner, isPlayerFirst) => {
 
   localStorage.setItem("results", JSON.stringify(results));
 };
-
-const getTheWinrates = () => {
-  let results = [];
-  if (localStorage.getItem("results") !== null) {
-    results = JSON.parse(localStorage.getItem("results"));
-  }
-};
