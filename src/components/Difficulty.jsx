@@ -15,7 +15,9 @@ const Difficulty = () => {
   // Set the difficulty and jump to the next selectable options...
   const handleClick = (difficulty) => {
     setDifficulty(difficulty);
-    navigate("/choice");
+    setTimeout(() => {
+      navigate("/choice");
+    }, 250);
   };
 
   return (

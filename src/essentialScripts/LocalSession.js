@@ -55,8 +55,6 @@ export const saveTheResult = (difficulty, winner, isPlayerFirst) => {
     results = JSON.parse(localStorage.getItem("results"));
   }
 
-  console.log(results);
-
   results.push({ difficulty: difficulty, winner: endResult });
 
   localStorage.setItem("results", JSON.stringify(results));

@@ -7,14 +7,26 @@ const Start = () => {
   const navigate = useNavigate();
 
   const handleNewGame = () => {
-    newGame();
-    navigate("/difficulty");
+    setTimeout(() => {
+      newGame();
+      navigate("/difficulty");
+    }, 250);
   };
 
   return (
     <div className="holder">
       <button onClick={() => handleNewGame()}>NEW GAME</button>
-      {isStarted && <button onClick={() => navigate("/game")}>CONTINUE</button>}
+      {isStarted && (
+        <button
+          onClick={() =>
+            setTimeout(() => {
+              navigate("/game");
+            }, 1000)
+          }
+        >
+          CONTINUE
+        </button>
+      )}
     </div>
   );
 };

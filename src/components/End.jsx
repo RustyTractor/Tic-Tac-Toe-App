@@ -7,8 +7,10 @@ const End = () => {
   const navigate = useNavigate();
 
   const handleNewGame = () => {
-    newGame();
-    navigate("/difficulty");
+    setTimeout(() => {
+      newGame();
+      navigate("/difficulty");
+    }, 250);
   };
   return (
     <div className="conatiner">

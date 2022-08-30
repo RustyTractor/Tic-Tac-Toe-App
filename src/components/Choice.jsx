@@ -29,8 +29,11 @@ const Choice = () => {
       setIsPlayerFirst(false);
       modifyPlayerTurn(false);
     }
-    setIsStarted(true);
-    navigate("/game");
+
+    setTimeout(() => {
+      setIsStarted(true);
+      navigate("/game");
+    }, 250);
   };
   return (
     <div className="choiceHolder">

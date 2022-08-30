@@ -50,7 +50,7 @@ const Game = () => {
 
   // Handle the ai step...
   const AiStep = () => {
-    const step = AiCalculate(isPlayerFirst, [...gameBoard], difficulty);
+    const step = AiCalculate(isPlayerFirst, [...gameBoard], difficulty, isDone);
     dispatch({
       type: "SET_TURN",
       isX: !state.isX,
@@ -62,20 +62,16 @@ const Game = () => {
   useEffect(() => {
     // If someon wins with the current step or draw , then game is done...
     if (detectWinner(gameBoard) !== 0 || isEmptyField(gameBoard) === false) {
-      console.log("Lefut a győztes detektálása!");
       setIsDone(true);
       setWinner(detectWinner(gameBoard));
+    } else {
+      !state.isPlayerTurn && setTimeout(() => AiStep(), 1000);
     }
 
     if (isDone) {
-      console.log("Lefut a navigáció!");
       saveTheResult(difficulty, winner, isPlayerFirst);
       navigate("/end");
     }
-  });
-
-  useEffect(() => {
-    !state.isPlayerTurn && isStarted && !isDone && AiStep();
   });
 
   return (

@@ -47,6 +47,34 @@ export const isEmptyField = (table) => {
   return false;
 };
 
+const easyMode = (isPlayerFirst, table) => {
+  let value = isPlayerFirst ? 1 : 2;
+
+  for (let i = 0; i < 8; i++) {
+    if (
+      (table[possibleOptions[i][0]] === value &&
+        table[possibleOptions[i][1]] === value) ||
+      (table[possibleOptions[i][1]] === value &&
+        table[possibleOptions[i][2]] === value) ||
+      (table[possibleOptions[i][0]] === value &&
+        table[possibleOptions[i][2] === value])
+    ) {
+      for (let j = 0; j < 3; j++) {
+        if (table[possibleOptions[i][j]] === 0) {
+          return possibleOptions[i][j];
+        }
+      }
+    }
+  }
+
+  let currentChoice = Math.floor(Math.random() * 9);
+  while (table[currentChoice] !== 0) {
+    currentChoice = Math.floor(Math.random() * 9);
+  }
+
+  return currentChoice;
+};
+
 // Min - Max alga with Alpha and Beta cut... https://www.javatpoint.com/mini-max-algorithm-in-ai
 const minmax = (table, depth, currentDepth, isMax, alpha, beta) => {
   let score = detectWinner(table);
@@ -118,21 +146,13 @@ const minmax = (table, depth, currentDepth, isMax, alpha, beta) => {
 };
 
 //AI choice. Wich is currentli just a random number.
-export const AiCalculate = (playerFirst, table, difficulty) => {
-  let aiSelector = 0;
+export const AiCalculate = (playerFirst, table, difficulty, isDone) => {
   let bestMove = 0;
-
-  if (difficulty === "easy") {
-    aiSelector = Math.floor(Math.random() * 10);
-  } else if (difficulty === "medium") {
-    aiSelector = Math.floor(Math.random() * 10);
+  if (!isEmptyField(table)) {
+    return;
   }
 
-  if (
-    difficulty === "hard" ||
-    (difficulty === "medium" && aiSelector > 2) ||
-    (difficulty === "easy" && aiSelector > 4)
-  ) {
+  if (difficulty === "hard" || difficulty === "easy") {
     let bestValue = MAX;
 
     let isMaxTheNext = true;
@@ -168,12 +188,9 @@ export const AiCalculate = (playerFirst, table, difficulty) => {
         }
       }
     }
-  } else {
-    bestMove = Math.floor(Math.random() * 9);
-    while (table[bestMove] !== 0) {
-      bestMove = Math.floor(Math.random() * 9);
-    }
   }
-
+  if (difficulty === "medium") {
+    bestMove = easyMode(playerFirst, table);
+  }
   return bestMove;
 };
