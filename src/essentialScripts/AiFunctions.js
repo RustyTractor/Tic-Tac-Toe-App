@@ -152,11 +152,7 @@ export const AiCalculate = (playerFirst, table, difficulty, isDone) => {
     return;
   }
 
-  if (
-    difficulty === "hard" ||
-    difficulty === "easy" ||
-    difficulty === "medium"
-  ) {
+  if (difficulty === "hard" || difficulty === "medium") {
     let bestValue = MAX;
 
     let isMaxTheNext = true;
@@ -192,6 +188,8 @@ export const AiCalculate = (playerFirst, table, difficulty, isDone) => {
         }
       }
     }
+  } else {
+    bestMove = easyMode(playerFirst, table);
   }
 
   return bestMove;
