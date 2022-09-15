@@ -9,7 +9,7 @@ It's still unfinished, but you can try it on the following link.\
 !!!!If you want some real challenge , then you have to try the HARD mode.!!!!!\
 
 
-https://sage-churros-e1fa9d.netlify.app/difficulty
+https://sage-churros-e1fa9d.netlify.app
 
 
 
