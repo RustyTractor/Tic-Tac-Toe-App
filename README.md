@@ -2,6 +2,18 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# About the Project
+Tic-Tac-Toe game, everthing that you have to know about the game rules: https://en.wikipedia.org/wiki/Tic-tac-toe
+
+It's still unfinished, but you can try it on the following link.
+!!!!If you want some real challenge , then you will try the HARD mode.!!!!!
+
+
+https://sage-churros-e1fa9d.netlify.app/difficulty
+
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:
